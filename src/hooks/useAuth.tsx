@@ -33,8 +33,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             } else {
                 setLoading(false);
                 // Redirect to login if no session and not already on login page
-                if (window.location.pathname !== '/login') {
-                    window.location.href = '/login';
+                if (window.location.pathname !== '/') {
+                    window.location.href = '/';
                 }
             }
         });
@@ -48,8 +48,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 console.log('⏰ Session expired or signed out - redirecting to login');
                 setUser(null);
                 setLoading(false);
-                if (window.location.pathname !== '/login') {
-                    window.location.href = '/login';
+                if (window.location.pathname !== '/') {
+                    window.location.href = '/';
                 }
                 return;
             }
@@ -60,8 +60,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 setUser(null);
                 setLoading(false);
                 // No session - redirect to login
-                if (window.location.pathname !== '/login') {
-                    window.location.href = '/login';
+                if (window.location.pathname !== '/') {
+                    window.location.href = '/';
                 }
             }
         });
