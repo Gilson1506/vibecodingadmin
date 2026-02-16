@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Plus, Users, Mail, Calendar, Pencil, Trash2, Shield, ShieldCheck, Loader2, CheckCircle, XCircle, RefreshCw } from "lucide-react";
+import { Plus, Users, Mail, Calendar, Pencil, Trash2, Shield, ShieldCheck, Loader2, CheckCircle, XCircle, RefreshCw, BookOpen, GraduationCap } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 
@@ -32,6 +32,13 @@ export default function UsersPage() {
   const [newUser, setNewUser] = useState({ name: '', email: '', password: '' });
   const [editingUser, setEditingUser] = useState<User | null>(null);
 
+  // Enrollment states
+  const [isEnrollDialogOpen, setIsEnrollDialogOpen] = useState(false);
+  const [userEnrollments, setUserEnrollments] = useState<string[]>([]);
+  const [userProjectPurchases, setUserProjectPurchases] = useState<string[]>([]);
+  const [availableCourses, setAvailableCourses] = useState<{ id: string, title: string }[]>([]);
+  const [availableProjects, setAvailableProjects] = useState<{ id: string, title: string }[]>([]);
+
   // Fetch users from Supabase
   const fetchUsers = async () => {
     setLoading(true);
@@ -50,8 +57,32 @@ export default function UsersPage() {
     }
   };
 
+  const fetchCourses = async () => {
+    try {
+      const { data: courses } = await supabase.from('courses').select('id, title').eq('is_published', true);
+      setAvailableCourses(courses || []);
+      const { data: projects } = await supabase.from('projects').select('id, title').eq('is_published', true);
+      setAvailableProjects(projects || []);
+    } catch (error) {
+      console.error("Erro ao buscar cursos/projetos:", error);
+    }
+  };
+
+  const fetchUserEnrollments = async (userId: string) => {
+    try {
+      const { data: enrollments } = await supabase.from('enrollments').select('course_id').eq('user_id', userId);
+      setUserEnrollments(enrollments?.map(e => e.course_id) || []);
+
+      const { data: purchases } = await supabase.from('project_purchases').select('project_id').eq('user_id', userId);
+      setUserProjectPurchases(purchases?.map(p => p.project_id) || []);
+    } catch (error) {
+      console.error("Erro ao buscar matrículas do usuário:", error);
+    }
+  };
+
   useEffect(() => {
     fetchUsers();
+    fetchCourses();
   }, []);
 
   // Filter users by search term
@@ -130,7 +161,7 @@ export default function UsersPage() {
     }
   };
 
-  // Toggle access
+  // Toggle global access
   const toggleAccess = async (user: User) => {
     try {
       const { error } = await supabase
@@ -152,7 +183,6 @@ export default function UsersPage() {
     if (!confirm('Tem certeza que deseja excluir este usuário?')) return;
 
     try {
-      // Delete from auth (will cascade to users table)
       const { error } = await supabase.auth.admin.deleteUser(id);
       if (error) throw error;
 
@@ -160,6 +190,42 @@ export default function UsersPage() {
       fetchUsers();
     } catch (error: any) {
       toast.error('Erro ao excluir: ' + error.message);
+    }
+  };
+
+  const handleEnrollmentToggle = async (courseId: string) => {
+    if (!editingUser) return;
+    const isEnrolled = userEnrollments.includes(courseId);
+    try {
+      if (isEnrolled) {
+        await supabase.from('enrollments').delete().eq('user_id', editingUser.id).eq('course_id', courseId);
+        setUserEnrollments(prev => prev.filter(id => id !== courseId));
+        toast.info("Matrícula removida");
+      } else {
+        await supabase.from('enrollments').insert({ user_id: editingUser.id, course_id: courseId });
+        setUserEnrollments(prev => [...prev, courseId]);
+        toast.success("Matrícula adicionada");
+      }
+    } catch (error: any) {
+      toast.error("Erro ao gerenciar matrícula: " + error.message);
+    }
+  };
+
+  const handleProjectToggle = async (projectId: string) => {
+    if (!editingUser) return;
+    const isPurchased = userProjectPurchases.includes(projectId);
+    try {
+      if (isPurchased) {
+        await supabase.from('project_purchases').delete().eq('user_id', editingUser.id).eq('project_id', projectId);
+        setUserProjectPurchases(prev => prev.filter(id => id !== projectId));
+        toast.info("Acesso ao projeto removido");
+      } else {
+        await supabase.from('project_purchases').insert({ user_id: editingUser.id, project_id: projectId });
+        setUserProjectPurchases(prev => [...prev, projectId]);
+        toast.success("Acesso ao projeto concedido");
+      }
+    } catch (error: any) {
+      toast.error("Erro ao gerenciar projeto: " + error.message);
     }
   };
 
@@ -273,8 +339,8 @@ export default function UsersPage() {
                   </td>
                   <td className="p-4">
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${user.role === 'admin'
-                        ? 'bg-purple-100 text-purple-700'
-                        : 'bg-slate-100 text-slate-700'
+                      ? 'bg-purple-100 text-purple-700'
+                      : 'bg-slate-100 text-slate-700'
                       }`}>
                       {user.role === 'admin' ? 'Admin' : 'Aluno'}
                     </span>
@@ -283,8 +349,8 @@ export default function UsersPage() {
                     <button
                       onClick={() => toggleAccess(user)}
                       className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium transition-colors ${user.has_access
-                          ? 'bg-green-100 text-green-700 hover:bg-green-200'
-                          : 'bg-red-100 text-red-700 hover:bg-red-200'
+                        ? 'bg-green-100 text-green-700 hover:bg-green-200'
+                        : 'bg-red-100 text-red-700 hover:bg-red-200'
                         }`}
                     >
                       {user.has_access ? (
@@ -301,6 +367,18 @@ export default function UsersPage() {
                     </div>
                   </td>
                   <td className="p-4 text-right">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      title="Gerenciar Acessos"
+                      onClick={() => {
+                        setEditingUser(user);
+                        fetchUserEnrollments(user.id);
+                        setIsEnrollDialogOpen(true);
+                      }}
+                    >
+                      <GraduationCap className="w-4 h-4 text-sky-600" />
+                    </Button>
                     <Button
                       variant="ghost"
                       size="sm"
@@ -326,7 +404,7 @@ export default function UsersPage() {
         </Card>
       )}
 
-      {/* Edit Dialog */}
+      {/* Edit User Dialog */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent>
           <DialogHeader>
@@ -374,6 +452,71 @@ export default function UsersPage() {
                 {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
                 Salvar Alterações
               </Button>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Enrollments & Access Dialog */}
+      <Dialog open={isEnrollDialogOpen} onOpenChange={setIsEnrollDialogOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Gerenciar Acessos</DialogTitle>
+          </DialogHeader>
+          {editingUser && (
+            <div className="space-y-6 py-4">
+              <div className="p-3 bg-slate-50 rounded-lg">
+                <p className="text-sm font-medium text-slate-700">{editingUser.full_name}</p>
+                <p className="text-xs text-slate-500">{editingUser.email}</p>
+              </div>
+
+              {/* Courses Section */}
+              <div className="space-y-2">
+                <Label className="text-xs uppercase font-bold text-slate-500">Cursos</Label>
+                <div className="space-y-2 max-h-[180px] overflow-y-auto pr-2 custom-scrollbar border rounded-lg p-2">
+                  {availableCourses.map(course => (
+                    <div key={course.id} className="flex items-center justify-between p-2 hover:bg-slate-50 rounded-md transition-colors border-b last:border-0">
+                      <div className="flex items-center gap-2 truncate">
+                        <BookOpen className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                        <span className="text-sm font-medium truncate">{course.title}</span>
+                      </div>
+                      <Button
+                        size="sm"
+                        variant={userEnrollments.includes(course.id) ? "destructive" : "outline"}
+                        onClick={() => handleEnrollmentToggle(course.id)}
+                        className="h-7 text-xs px-3 ml-2 shrink-0"
+                      >
+                        {userEnrollments.includes(course.id) ? "Remover" : "Inscrever"}
+                      </Button>
+                    </div>
+                  ))}
+                  {availableCourses.length === 0 && <p className="text-xs text-slate-400 text-center py-4">Sem cursos publicados.</p>}
+                </div>
+              </div>
+
+              {/* Projects Section */}
+              <div className="space-y-2">
+                <Label className="text-xs uppercase font-bold text-slate-500">Projetos</Label>
+                <div className="space-y-2 max-h-[180px] overflow-y-auto pr-2 custom-scrollbar border rounded-lg p-2">
+                  {availableProjects.map(project => (
+                    <div key={project.id} className="flex items-center justify-between p-2 hover:bg-slate-50 rounded-md transition-colors border-b last:border-0">
+                      <div className="flex items-center gap-2 truncate">
+                        <Plus className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                        <span className="text-sm font-medium truncate">{project.title}</span>
+                      </div>
+                      <Button
+                        size="sm"
+                        variant={userProjectPurchases.includes(project.id) ? "destructive" : "outline"}
+                        onClick={() => handleProjectToggle(project.id)}
+                        className="h-7 text-xs px-3 ml-2 shrink-0"
+                      >
+                        {userProjectPurchases.includes(project.id) ? "Remover" : "Liberar"}
+                      </Button>
+                    </div>
+                  ))}
+                  {availableProjects.length === 0 && <p className="text-xs text-slate-400 text-center py-4">Sem projetos publicados.</p>}
+                </div>
+              </div>
             </div>
           )}
         </DialogContent>

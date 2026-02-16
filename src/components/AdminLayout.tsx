@@ -20,6 +20,7 @@ import {
   Tag,
   Mail,
   ShoppingCart,
+  Package,
 } from "lucide-react";
 import { Loader2 } from "lucide-react";
 
@@ -42,6 +43,7 @@ const navItems: NavItem[] = [
   { icon: <Wrench className="w-5 h-5" />, label: "Ferramentas", href: "/admin/tools" },
   { icon: <Wallet className="w-5 h-5" />, label: "Finanças", href: "/admin/finance" },
   { icon: <Mail className="w-5 h-5" />, label: "Campanhas", href: "/admin/campaigns" },
+  { icon: <Package className="w-5 h-5" />, label: "Projetos", href: "/admin/projects" },
   { icon: <ShoppingCart className="w-5 h-5" />, label: "Checkout", href: "/admin/checkout-settings" },
   { icon: <Settings className="w-5 h-5" />, label: "Configurações", href: "/admin/settings" },
 ];

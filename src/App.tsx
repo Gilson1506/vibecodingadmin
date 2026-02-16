@@ -14,6 +14,7 @@ import UsersPage from "./pages/admin/Users";
 import LiveSessionsPage from "./pages/admin/LiveSessions";
 import CommunityPage from "./pages/admin/Community";
 import ToolsPage from "./pages/admin/Tools";
+import AdminProjectsPage from "./pages/admin/Projects";
 import SettingsPage from "./pages/admin/Settings";
 import FinancePage from "./pages/admin/Finance";
 import CategoriesPage from "./pages/admin/Categories";
@@ -99,6 +100,13 @@ function Router() {
         {() => (
           <AdminLayout>
             <SettingsPage />
+          </AdminLayout>
+        )}
+      </Route>
+      <Route path="/admin/projects">
+        {() => (
+          <AdminLayout>
+            <AdminProjectsPage />
           </AdminLayout>
         )}
       </Route>
