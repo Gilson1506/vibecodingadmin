@@ -603,7 +603,7 @@ export default function CommunityPage() {
     </div>
   );
 
-  function wrapperInputRefClick(ref: React.RefObject<HTMLInputElement>) {
+  function wrapperInputRefClick(ref: React.RefObject<HTMLInputElement | null>) {
     ref.current?.click();
   }
 }

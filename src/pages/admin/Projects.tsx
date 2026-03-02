@@ -54,6 +54,7 @@ interface Project {
     is_published: boolean;
     details_json: any;
     previews: Preview[];
+    images_urls?: string[];
     project_files?: ProjectFile[];
 }
 
@@ -112,6 +113,7 @@ export default function AdminProjectsPage() {
             description: '',
             price_cents: 0,
             cover_url: '',
+            images_urls: [],
             is_published: true,
             long_description: '',
             previews: [],

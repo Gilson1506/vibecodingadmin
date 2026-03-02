@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Send, Users, Loader2, CheckCircle2, AlertCircle, ArrowLeft } from "lucide-react";
 import { API_URL } from "@/lib/supabase";
-import axios from "axios";
+import api from "@/lib/api";
 
 export function EmailCampaigns({ onBack }: { onBack: () => void }) {
     const [emailType, setEmailType] = useState<"single" | "bulk">("single");
@@ -30,7 +30,7 @@ export function EmailCampaigns({ onBack }: { onBack: () => void }) {
 
         try {
             if (emailType === "single") {
-                const response = await axios.post(`${API_URL}/api/email/send`, {
+                const response = await api.post(`/api/email/send`, {
                     to,
                     subject,
                     htmlContent,
@@ -41,7 +41,7 @@ export function EmailCampaigns({ onBack }: { onBack: () => void }) {
                 setSuccess(true);
             } else {
                 const recipientList = recipients.split("\n").map(r => r.trim()).filter(r => r);
-                const response = await axios.post(`${API_URL}/api/email/send-bulk`, {
+                const response = await api.post(`/api/email/send-bulk`, {
                     recipients: recipientList,
                     subject,
                     htmlContent,

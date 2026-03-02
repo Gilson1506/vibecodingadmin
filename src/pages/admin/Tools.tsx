@@ -564,7 +564,7 @@ export default function ToolsPage() {
                           className="flex items-center justify-between bg-white rounded-lg p-2 border border-sky-200"
                         >
                           <div className="flex items-center gap-2">
-                            {file.type === 'image' ? (
+                            {file.file_type === 'image' ? (
                               <div className="w-8 h-8 bg-green-100 rounded flex items-center justify-center">
                                 <Image className="w-4 h-4 text-green-600" />
                               </div>
@@ -575,7 +575,7 @@ export default function ToolsPage() {
                             )}
                             <div>
                               <p className="text-sm font-medium text-slate-700 truncate max-w-[180px]">{file.name}</p>
-                              <p className="text-xs text-slate-500">{formatFileSize(file.size)}</p>
+                              <p className="text-xs text-slate-500">{formatFileSize(file.file_size)}</p>
                             </div>
                           </div>
                           <button
@@ -689,12 +689,12 @@ export default function ToolsPage() {
                 </div>
 
                 {/* Orientation indicator */}
-                {(tool.orientation_text || (tool.tool_orientation_files)?.length > 0) && (
+                {(tool.orientation_text || (tool.tool_orientation_files || []).length > 0) && (
                   <div className="flex items-center gap-2 text-xs text-amber-600 mb-3">
                     <Paperclip className="w-3 h-3" />
                     <span>
                       Orientação incluída
-                      {(tool.tool_orientation_files)?.length > 0 && ` (${(tool.tool_orientation_files).length} arquivo${(tool.tool_orientation_files).length > 1 ? 's' : ''})`}
+                      {(tool.tool_orientation_files || []).length > 0 && ` (${(tool.tool_orientation_files || []).length} arquivo${(tool.tool_orientation_files || []).length > 1 ? 's' : ''})`}
                     </span>
                   </div>
                 )}

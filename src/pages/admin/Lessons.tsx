@@ -57,6 +57,7 @@ interface Lesson {
   is_published: boolean;
   mux_playback_id?: string;
   mux_asset_id?: string;
+  mux_status?: string;
   courses?: {
     title: string;
   };

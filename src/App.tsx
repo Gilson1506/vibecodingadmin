@@ -1,7 +1,8 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Route, Switch, Router as WouterRouter } from "wouter";
+import { useHashLocation } from "wouter/use-hash-location";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
@@ -24,110 +25,112 @@ import CheckoutSettingsPage from "./pages/admin/CheckoutSettings";
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
-    <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path="/admin">
-        {() => (
-          <AdminLayout>
-            <AdminDashboard />
-          </AdminLayout>
-        )}
-      </Route>
-      <Route path="/admin/courses">
-        {() => (
-          <AdminLayout>
-            <CoursesPage />
-          </AdminLayout>
-        )}
-      </Route>
-      <Route path="/admin/lessons">
-        {() => (
-          <AdminLayout>
-            <LessonsPage />
-          </AdminLayout>
-        )}
-      </Route>
-      <Route path="/admin/materials">
-        {() => (
-          <AdminLayout>
-            <MaterialsPage />
-          </AdminLayout>
-        )}
-      </Route>
-      <Route path="/admin/categories">
-        {() => (
-          <AdminLayout>
-            <CategoriesPage />
-          </AdminLayout>
-        )}
-      </Route>
-      <Route path="/admin/users">
-        {() => (
-          <AdminLayout>
-            <UsersPage />
-          </AdminLayout>
-        )}
-      </Route>
-      <Route path="/admin/live-sessions">
-        {() => (
-          <AdminLayout>
-            <LiveSessionsPage />
-          </AdminLayout>
-        )}
-      </Route>
-      <Route path="/admin/community">
-        {() => (
-          <AdminLayout>
-            <CommunityPage />
-          </AdminLayout>
-        )}
-      </Route>
-      <Route path="/admin/tools">
-        {() => (
-          <AdminLayout>
-            <ToolsPage />
-          </AdminLayout>
-        )}
-      </Route>
-      <Route path="/admin/finance">
-        {() => (
-          <AdminLayout>
-            <FinancePage />
-          </AdminLayout>
-        )}
-      </Route>
-      <Route path="/admin/settings">
-        {() => (
-          <AdminLayout>
-            <SettingsPage />
-          </AdminLayout>
-        )}
-      </Route>
-      <Route path="/admin/projects">
-        {() => (
-          <AdminLayout>
-            <AdminProjectsPage />
-          </AdminLayout>
-        )}
-      </Route>
-      <Route path="/admin/campaigns">
-        {() => (
-          <AdminLayout>
-            <CampaignsPage />
-          </AdminLayout>
-        )}
-      </Route>
-      <Route path="/admin/checkout-settings">
-        {() => (
-          <AdminLayout>
-            <CheckoutSettingsPage />
-          </AdminLayout>
-        )}
-      </Route>
-      <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
-      <Route component={NotFound} />
-    </Switch>
+    <WouterRouter hook={useHashLocation}>
+      <Switch>
+        <Route path={"/"} component={Home} />
+        <Route path="/admin">
+          {() => (
+            <AdminLayout>
+              <AdminDashboard />
+            </AdminLayout>
+          )}
+        </Route>
+        <Route path="/admin/courses">
+          {() => (
+            <AdminLayout>
+              <CoursesPage />
+            </AdminLayout>
+          )}
+        </Route>
+        <Route path="/admin/lessons">
+          {() => (
+            <AdminLayout>
+              <LessonsPage />
+            </AdminLayout>
+          )}
+        </Route>
+        <Route path="/admin/materials">
+          {() => (
+            <AdminLayout>
+              <MaterialsPage />
+            </AdminLayout>
+          )}
+        </Route>
+        <Route path="/admin/categories">
+          {() => (
+            <AdminLayout>
+              <CategoriesPage />
+            </AdminLayout>
+          )}
+        </Route>
+        <Route path="/admin/users">
+          {() => (
+            <AdminLayout>
+              <UsersPage />
+            </AdminLayout>
+          )}
+        </Route>
+        <Route path="/admin/live-sessions">
+          {() => (
+            <AdminLayout>
+              <LiveSessionsPage />
+            </AdminLayout>
+          )}
+        </Route>
+        <Route path="/admin/community">
+          {() => (
+            <AdminLayout>
+              <CommunityPage />
+            </AdminLayout>
+          )}
+        </Route>
+        <Route path="/admin/tools">
+          {() => (
+            <AdminLayout>
+              <ToolsPage />
+            </AdminLayout>
+          )}
+        </Route>
+        <Route path="/admin/finance">
+          {() => (
+            <AdminLayout>
+              <FinancePage />
+            </AdminLayout>
+          )}
+        </Route>
+        <Route path="/admin/settings">
+          {() => (
+            <AdminLayout>
+              <SettingsPage />
+            </AdminLayout>
+          )}
+        </Route>
+        <Route path="/admin/projects">
+          {() => (
+            <AdminLayout>
+              <AdminProjectsPage />
+            </AdminLayout>
+          )}
+        </Route>
+        <Route path="/admin/campaigns">
+          {() => (
+            <AdminLayout>
+              <CampaignsPage />
+            </AdminLayout>
+          )}
+        </Route>
+        <Route path="/admin/checkout-settings">
+          {() => (
+            <AdminLayout>
+              <CheckoutSettingsPage />
+            </AdminLayout>
+          )}
+        </Route>
+        <Route path={"/404"} component={NotFound} />
+        {/* Final fallback route */}
+        <Route component={NotFound} />
+      </Switch>
+    </WouterRouter>
   );
 }
 

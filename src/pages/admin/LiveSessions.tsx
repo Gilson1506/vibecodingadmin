@@ -35,7 +35,7 @@ import {
   Eye
 } from "lucide-react";
 import { toast } from "sonner";
-import axios from "axios";
+import api from "@/lib/api";
 import { API_URL } from "@/lib/supabase";
 
 // Types matching the Backend/Database
@@ -80,7 +80,7 @@ export default function LiveSessionsPage() {
   const fetchSessions = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API_URL}/api/live/list`);
+      const response = await api.get(`/api/live/list`);
       setSessions(response.data);
     } catch (error) {
       console.error("Error fetching sessions:", error);
@@ -98,7 +98,7 @@ export default function LiveSessionsPage() {
 
     setIsCreating(true);
     try {
-      const response = await axios.post(`${API_URL}/api/live/create`, {
+      const response = await api.post(`/api/live/create`, {
         title: formData.title,
         description: formData.description,
         scheduledAt: new Date(formData.scheduledAt).toISOString(),
@@ -131,7 +131,7 @@ export default function LiveSessionsPage() {
     if (!confirm("Tem certeza que deseja excluir esta sessão?")) return;
 
     try {
-      await axios.delete(`${API_URL}/api/live/${id}`);
+      await api.delete(`/api/live/${id}`);
       setSessions(sessions.filter(s => s.id !== id));
       toast.success("Sessão removida");
     } catch (error) {
@@ -142,7 +142,7 @@ export default function LiveSessionsPage() {
 
   const checkStatus = async (id: string) => {
     try {
-      const response = await axios.get(`${API_URL}/api/live/${id}`);
+      const response = await api.get(`/api/live/${id}`);
       const updatedSession = response.data;
 
       setSessions(sessions.map(s => s.id === id ? updatedSession : s));

@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { MessageSquare, Send, Users, Loader2, CheckCircle2, AlertCircle, ArrowLeft, MoreHorizontal, History } from "lucide-react";
 import { API_URL } from "@/lib/supabase";
-import axios from "axios";
+import api from "@/lib/api";
 import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -28,7 +28,7 @@ export function SmsCampaigns({ onBack }: { onBack: () => void }) {
     const fetchHistory = async () => {
         setLoadingHistory(true);
         try {
-            const response = await axios.get(`${API_URL}/api/sms/history`);
+            const response = await api.get(`/api/sms/history`);
             setHistory(response.data.events || []);
         } catch (error) {
             console.error("Error fetching history:", error);
@@ -51,7 +51,7 @@ export function SmsCampaigns({ onBack }: { onBack: () => void }) {
             }
 
             if (smsType === "single") {
-                const response = await axios.post(`${API_URL}/api/sms/send`, {
+                const response = await api.post(`/api/sms/send`, {
                     recipient,
                     content,
                     sender,
@@ -63,7 +63,7 @@ export function SmsCampaigns({ onBack }: { onBack: () => void }) {
                 toast.success("SMS enviado com sucesso!");
             } else {
                 const recipientList = recipients.split("\n").map(r => r.trim()).filter(r => r);
-                const response = await axios.post(`${API_URL}/api/sms/send-bulk`, {
+                const response = await api.post(`/api/sms/send-bulk`, {
                     recipients: recipientList,
                     content,
                     sender,

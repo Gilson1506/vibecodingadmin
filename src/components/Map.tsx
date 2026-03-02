@@ -75,6 +75,7 @@
  */
 
 /// <reference types="@types/google.maps" />
+/// <reference types="vite/client" />
 
 import { useEffect, useRef } from "react";
 import { usePersistFn } from "@/hooks/usePersistFn";

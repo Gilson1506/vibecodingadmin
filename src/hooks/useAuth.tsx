@@ -25,31 +25,43 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 
+    // Helper: check if current (hash) location is on the login page
+    const isOnLoginPage = () => {
+        const hash = window.location.hash; // e.g. "" or "#/" or "#/admin"
+        return !hash || hash === '#' || hash === '#/';
+    };
+
     useEffect(() => {
+        // Safety timeout: if Supabase hangs (e.g. no network on first boot), stop blocking after 5s
+        const timeout = setTimeout(() => setLoading(false), 5000);
+
         // Check active session
         supabase.auth.getSession().then(({ data: { session } }) => {
+            clearTimeout(timeout);
             if (session?.user) {
                 loadUserProfile(session.user);
             } else {
                 setLoading(false);
-                // Redirect to login if no session and not already on login page
-                if (window.location.pathname !== '/') {
-                    window.location.href = '/';
+                // With HashRouter, use hash to check location
+                if (!isOnLoginPage()) {
+                    window.location.hash = '/';
                 }
             }
+        }).catch(() => {
+            clearTimeout(timeout);
+            setLoading(false);
         });
 
         // Listen for auth changes
         const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
             console.log('🔐 Auth event:', event);
 
-            if (event === 'SIGNED_OUT' || event === 'TOKEN_REFRESHED' && !session) {
-                // Session expired or user signed out - redirect to login
+            if (event === 'SIGNED_OUT' || (event === 'TOKEN_REFRESHED' && !session)) {
                 console.log('⏰ Session expired or signed out - redirecting to login');
                 setUser(null);
                 setLoading(false);
-                if (window.location.pathname !== '/') {
-                    window.location.href = '/';
+                if (!isOnLoginPage()) {
+                    window.location.hash = '/';
                 }
                 return;
             }
@@ -59,14 +71,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             } else {
                 setUser(null);
                 setLoading(false);
-                // No session - redirect to login
-                if (window.location.pathname !== '/') {
-                    window.location.href = '/';
+                if (!isOnLoginPage()) {
+                    window.location.hash = '/';
                 }
             }
         });
 
-        return () => subscription.unsubscribe();
+        return () => {
+            clearTimeout(timeout);
+            subscription.unsubscribe();
+        };
     }, []);
 
     const loadUserProfile = async (authUser: SupabaseUser) => {

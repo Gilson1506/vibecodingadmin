@@ -1,0 +1,20 @@
+src/components/ui/resizable.tsx(10,51): error TS2339: Property 'PanelGroup' does not exist on type 'typeof import("C:/Users/rigob/Downloads/vibecoding apps/vibecodingadmin/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/components/ui/resizable.tsx(12,25): error TS2339: Property 'PanelGroup' does not exist on type 'typeof import("C:/Users/rigob/Downloads/vibecoding apps/vibecodingadmin/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/components/ui/resizable.tsx(33,51): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("C:/Users/rigob/Downloads/vibecoding apps/vibecodingadmin/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/components/ui/resizable.tsx(37,25): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("C:/Users/rigob/Downloads/vibecoding apps/vibecodingadmin/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/components/ui/resizable.tsx(50,26): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("C:/Users/rigob/Downloads/vibecoding apps/vibecodingadmin/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/main.tsx(5,28): error TS2307: Cannot find module 'virtual:pwa-register' or its corresponding type declarations.
+src/pages/admin/Community.tsx(561,53): error TS2345: Argument of type 'RefObject<HTMLInputElement | null>' is not assignable to parameter of type 'RefObject<HTMLInputElement>'.
+  Type 'HTMLInputElement | null' is not assignable to type 'HTMLInputElement'.
+    Type 'null' is not assignable to type 'HTMLInputElement'.
+src/pages/admin/Community.tsx(569,53): error TS2345: Argument of type 'RefObject<HTMLInputElement | null>' is not assignable to parameter of type 'RefObject<HTMLInputElement>'.
+  Type 'HTMLInputElement | null' is not assignable to type 'HTMLInputElement'.
+    Type 'null' is not assignable to type 'HTMLInputElement'.
+src/pages/admin/Lessons.tsx(707,30): error TS2339: Property 'mux_status' does not exist on type 'Lesson'.
+src/pages/admin/Projects.tsx(132,38): error TS2339: Property 'images_urls' does not exist on type 'Project'.
+src/pages/admin/Tools.tsx(567,35): error TS2339: Property 'type' does not exist on type 'OrientationFile'.
+src/pages/admin/Tools.tsx(578,90): error TS2339: Property 'size' does not exist on type 'OrientationFile'.
+src/pages/admin/Tools.tsx(692,44): error TS2532: Object is possibly 'undefined'.
+src/pages/admin/Tools.tsx(697,24): error TS2532: Object is possibly 'undefined'.
+src/pages/admin/Tools.tsx(697,74): error TS2532: Object is possibly 'undefined'.
+src/pages/admin/Tools.tsx(697,121): error TS2532: Object is possibly 'undefined'.

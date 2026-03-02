@@ -8,6 +8,49 @@ const api = axios.create({
     }
 });
 
+// Interceptador para usar o Proxy Nativo do Node.js (via Electron IPC) e ignorar totalmente o bloqueio do Chromium
+api.interceptors.request.use((config) => {
+    // Se estivermos no Electron, intercepta para usar IPC no lugar do XMLHttpRequest
+    // @ts-ignore
+    if (window.electronAPI && window.electronAPI.apiProxy &&
+        (config.url?.includes('premierp2p') || config.baseURL?.includes('premierp2p'))) {
+
+        // Substituímos o adaptador padrão do Axios por nossa chamada IPC
+        config.adapter = async (config) => {
+            try {
+                let parsedData = config.data;
+                if (typeof config.data === 'string') {
+                    try { parsedData = JSON.parse(config.data); } catch (e) { }
+                }
+
+                // @ts-ignore
+                const result = await window.electronAPI.apiProxy({
+                    url: `${config.baseURL}${config.url}`,
+                    method: config.method?.toUpperCase() || 'GET',
+                    data: parsedData,
+                    headers: config.headers
+                });
+
+                if (!result.ok) {
+                    throw new Error(`API Proxy Error: ${result.status}`);
+                }
+
+                return {
+                    data: result.data,
+                    status: result.status,
+                    statusText: result.ok ? 'OK' : 'Error',
+                    headers: config.headers,
+                    config: config,
+                    request: {}
+                };
+            } catch (err: any) {
+                return Promise.reject(err);
+            }
+        };
+    }
+    return config;
+});
+
 // Payment API
 export const paymentAPI = {
     createExpressPayment: async (data: {

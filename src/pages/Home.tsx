@@ -48,12 +48,9 @@ export default function Home() {
         {/* Logo Header */}
         <div className="text-center mb-8">
           <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 bg-sky-500/20 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-xl border border-sky-500/30">
-              <BookOpen className="w-8 h-8 text-sky-500" />
-            </div>
+            <img src="./logo.png" alt="Logo" className="h-32 w-auto drop-shadow-2xl" />
           </div>
-          <h1 className="text-3xl font-bold text-slate-800 mb-2">Vibe Coding</h1>
-          <p className="text-slate-600">Painel Administrativo</p>
+          <p className="text-slate-600 font-medium">Painel Administrativo</p>
         </div>
 
         {/* Login Card */}

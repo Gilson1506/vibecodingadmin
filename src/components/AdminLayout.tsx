@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation, useRoute } from "wouter";
+import { useLocation, useRoute, Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAuth } from "@/hooks/useAuth";
@@ -22,6 +22,7 @@ import {
   ShoppingCart,
   Package,
 } from "lucide-react";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Loader2 } from "lucide-react";
 
 interface NavItem {
@@ -55,16 +56,8 @@ function Sidebar({ className = "" }: { className?: string }) {
   return (
     <div className={`flex flex-col h-full bg-gradient-to-b from-slate-900 to-slate-800 text-white ${className}`}>
       {/* Logo */}
-      <div className="p-6 border-b border-slate-700">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-sky-500 flex items-center justify-center font-bold text-lg">
-            VC
-          </div>
-          <div>
-            <h1 className="font-bold text-lg">Vibe Coding</h1>
-            <p className="text-xs text-slate-400">Admin Panel</p>
-          </div>
-        </div>
+      <div className="p-8 border-b border-slate-700 flex justify-center">
+        <img src="./logo.png" alt="Logo" className="h-20 w-auto" />
       </div>
 
       {/* Navigation */}
@@ -72,7 +65,7 @@ function Sidebar({ className = "" }: { className?: string }) {
         {navItems.map((item) => {
           const isActive = location === item.href;
           return (
-            <a
+            <Link
               key={item.href}
               href={item.href}
               className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${isActive
@@ -88,7 +81,7 @@ function Sidebar({ className = "" }: { className?: string }) {
                 </span>
               )}
               {isActive && <ChevronRight className="w-4 h-4" />}
-            </a>
+            </Link>
           );
         })}
       </nav>
@@ -128,9 +121,12 @@ function Header({ onMenuClick }: { onMenuClick: () => void }) {
 
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-3 px-4 py-2 bg-slate-100 rounded-lg">
-          <div className="w-8 h-8 rounded-full bg-sky-500 flex items-center justify-center text-white text-sm font-bold">
-            {user?.name?.charAt(0) || "A"}
-          </div>
+          <Avatar className="h-8 w-8 border border-slate-200">
+            <AvatarImage src={user?.avatar} alt={user?.name} className="object-cover" />
+            <AvatarFallback className="bg-sky-500 text-white text-xs font-bold">
+              {user?.name?.charAt(0).toUpperCase() || "A"}
+            </AvatarFallback>
+          </Avatar>
           <div className="hidden sm:block">
             <p className="text-sm font-medium text-slate-900">{user?.name || "Admin"}</p>
             <p className="text-xs text-slate-500">{user?.email}</p>

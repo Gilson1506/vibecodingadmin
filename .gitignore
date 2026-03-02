@@ -6,6 +6,11 @@
 dist/
 build/
 *.dist
+release-packager/
+release-builds/
+release/
+out/
+dist-electron/
 
 # Environment variables
 .env

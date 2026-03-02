@@ -1,0 +1,138 @@
+  • electron-builder  version=25.1.8 os=10.0.26200
+  • loaded configuration  file=package.json ("build" field)
+  • executing @electron/rebuild  electronVersion=34.5.8 arch=x64 buildFromSource=false appDir=./
+  • installing native dependencies  arch=x64
+  • completed installing native dependencies
+  • packaging       platform=win32 arch=x64 electron=34.5.8 appOutDir=release\1.0.0\win-unpacked
+  • updating asar integrity executable resource  executablePath=release\1.0.0\win-unpacked\Vibe Coding Academy.exe
+  • downloading     url=https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z size=5.6 MB parts=1
+  • downloaded      url=https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z duration=6.334s
+  ⨯ cannot execute  cause=exit status 2
+                    out=
+    7-Zip (a) 21.07 (x64) : Copyright (c) 1999-2021 Igor Pavlov : 2021-12-26
+    
+    Scanning the drive for archives:
+    1 file, 5635384 bytes (5504 KiB)
+    
+    Extracting archive: C:\Users\rigob\AppData\Local\electron-builder\Cache\winCodeSign\656379155.7z
+    --
+    Path = C:\Users\rigob\AppData\Local\electron-builder\Cache\winCodeSign\656379155.7z
+    Type = 7z
+    Physical Size = 5635384
+    Headers Size = 1492
+    Method = LZMA2:24m LZMA:20 BCJ2
+    Solid = +
+    Blocks = 2
+    
+    
+    Sub items Errors: 2
+    
+    Archives with Errors: 1
+    
+    Sub items Errors: 2
+    
+                    errorOut=ERROR: Cannot create symbolic link : Um privil�gio necess�rio n�o � mantido pelo cliente. : C:\Users\rigob\AppData\Local\electron-builder\Cache\winCodeSign\656379155\darwin\10.12\lib\libcrypto.dylib
+    ERROR: Cannot create symbolic link : Um privil�gio necess�rio n�o � mantido pelo cliente. : C:\Users\rigob\AppData\Local\electron-builder\Cache\winCodeSign\656379155\darwin\10.12\lib\libssl.dylib
+    
+                    command='C:\Users\rigob\Downloads\vibecoding apps\vibecodingadmin\node_modules\7zip-bin\win\x64\7za.exe' x -snld -bd 'C:\Users\rigob\AppData\Local\electron-builder\Cache\winCodeSign\656379155.7z' '-oC:\Users\rigob\AppData\Local\electron-builder\Cache\winCodeSign\656379155'
+                    workingDir=C:\Users\rigob\AppData\Local\electron-builder\Cache\winCodeSign
+  • Above command failed, retrying 3 more times
+  • downloading     url=https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z size=5.6 MB parts=1
+  • downloaded      url=https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z duration=6.634s
+  ⨯ cannot execute  cause=exit status 2
+                    out=
+    7-Zip (a) 21.07 (x64) : Copyright (c) 1999-2021 Igor Pavlov : 2021-12-26
+    
+    Scanning the drive for archives:
+    1 file, 5635384 bytes (5504 KiB)
+    
+    Extracting archive: C:\Users\rigob\AppData\Local\electron-builder\Cache\winCodeSign\240539367.7z
+    --
+    Path = C:\Users\rigob\AppData\Local\electron-builder\Cache\winCodeSign\240539367.7z
+    Type = 7z
+    Physical Size = 5635384
+    Headers Size = 1492
+    Method = LZMA2:24m LZMA:20 BCJ2
+    Solid = +
+    Blocks = 2
+    
+    
+    Sub items Errors: 2
+    
+    Archives with Errors: 1
+    
+    Sub items Errors: 2
+    
+                    errorOut=ERROR: Cannot create symbolic link : Um privil�gio necess�rio n�o � mantido pelo cliente. : C:\Users\rigob\AppData\Local\electron-builder\Cache\winCodeSign\240539367\darwin\10.12\lib\libcrypto.dylib
+    ERROR: Cannot create symbolic link : Um privil�gio necess�rio n�o � mantido pelo cliente. : C:\Users\rigob\AppData\Local\electron-builder\Cache\winCodeSign\240539367\darwin\10.12\lib\libssl.dylib
+    
+                    command='C:\Users\rigob\Downloads\vibecoding apps\vibecodingadmin\node_modules\7zip-bin\win\x64\7za.exe' x -snld -bd 'C:\Users\rigob\AppData\Local\electron-builder\Cache\winCodeSign\240539367.7z' '-oC:\Users\rigob\AppData\Local\electron-builder\Cache\winCodeSign\240539367'
+                    workingDir=C:\Users\rigob\AppData\Local\electron-builder\Cache\winCodeSign
+  • Above command failed, retrying 3 more times
+  • downloading     url=https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z size=5.6 MB parts=1
+  • downloaded      url=https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z duration=41.276s
+  ⨯ cannot execute  cause=exit status 2
+                    out=
+    7-Zip (a) 21.07 (x64) : Copyright (c) 1999-2021 Igor Pavlov : 2021-12-26
+    
+    Scanning the drive for archives:
+    1 file, 5635384 bytes (5504 KiB)
+    
+    Extracting archive: C:\Users\rigob\AppData\Local\electron-builder\Cache\winCodeSign\404799627.7z
+    --
+    Path = C:\Users\rigob\AppData\Local\electron-builder\Cache\winCodeSign\404799627.7z
+    Type = 7z
+    Physical Size = 5635384
+    Headers Size = 1492
+    Method = LZMA2:24m LZMA:20 BCJ2
+    Solid = +
+    Blocks = 2
+    
+    
+    Archives with Errors: 1
+    
+    
+                    errorOut=
+    ERROR: Can't allocate required memory!
+    
+                    command='C:\Users\rigob\Downloads\vibecoding apps\vibecodingadmin\node_modules\7zip-bin\win\x64\7za.exe' x -snld -bd 'C:\Users\rigob\AppData\Local\electron-builder\Cache\winCodeSign\404799627.7z' '-oC:\Users\rigob\AppData\Local\electron-builder\Cache\winCodeSign\404799627'
+                    workingDir=C:\Users\rigob\AppData\Local\electron-builder\Cache\winCodeSign
+  • Above command failed, retrying 3 more times
+fatal error: out of memory allocating heap arena map
+
+runtime stack:
+runtime.throw({0x101ed8b?, 0x0?})
+	/Users/runner/hostedtoolcache/go/1.21.13/arm64/src/runtime/panic.go:1077 +0x65 fp=0xe73f1ff718 sp=0xe73f1ff6e8 pc=0x79b545
+runtime.(*mheap).sysAlloc(0x18de880, 0x7fffef6b8354?, 0x18eec40, 0x1)
+	/Users/runner/hostedtoolcache/go/1.21.13/arm64/src/runtime/malloc.go:741 +0x3e9 fp=0xe73f1ff7d0 sp=0xe73f1ff718 pc=0x76fca9
+runtime.(*mheap).grow(0x18de880, 0x7ffff03edc3c?)
+	/Users/runner/hostedtoolcache/go/1.21.13/arm64/src/runtime/mheap.go:1483 +0x76 fp=0xe73f1ff850 sp=0xe73f1ff7d0 pc=0x78c4b6
+runtime.(*mheap).allocSpan(0x18de880, 0x1, 0x0, 0xf9?)
+	/Users/runner/hostedtoolcache/go/1.21.13/arm64/src/runtime/mheap.go:1250 +0x1b0 fp=0xe73f1ff8f0 sp=0xe73f1ff850 pc=0x78bd90
+runtime.(*mheap).alloc.func1()
+	/Users/runner/hostedtoolcache/go/1.21.13/arm64/src/runtime/mheap.go:968 +0x5c fp=0xe73f1ff938 sp=0xe73f1ff8f0 pc=0x78b81c
+runtime.(*mheap).alloc(0xe73f1ff9d8?, 0x7cb26a?, 0x96?)
+	/Users/runner/hostedtoolcache/go/1.21.13/arm64/src/runtime/mheap.go:962 +0x5b fp=0xe73f1ff980 sp=0xe73f1ff938 pc=0x78b77b
+runtime.(*mcentral).grow(0x0?)
+	/Users/runner/hostedtoolcache/go/1.21.13/arm64/src/runtime/mcentral.go:246 +0x52 fp=0xe73f1ff9c0 sp=0xe73f1ff980 pc=0x77a052
+runtime.(*mcentral).cacheSpan(0x18f01c0)
+	/Users/runner/hostedtoolcache/go/1.21.13/arm64/src/runtime/mcentral.go:166 +0x306 fp=0xe73f1ffa18 sp=0xe73f1ff9c0 pc=0x779ec6
+runtime.(*mcache).refill(0x1fd4e910108, 0xe0?)
+	/Users/runner/hostedtoolcache/go/1.21.13/arm64/src/runtime/mcache.go:182 +0x153 fp=0xe73f1ffa58 sp=0xe73f1ffa18 pc=0x779613
+runtime.(*mcache).nextFree(0x1fd4e910108, 0x1c)
+	/Users/runner/hostedtoolcache/go/1.21.13/arm64/src/runtime/malloc.go:929 +0x85 fp=0xe73f1ffaa0 sp=0xe73f1ffa58 pc=0x7702e5
+runtime.mallocgc(0xc0, 0xee4200, 0x1)
+	/Users/runner/hostedtoolcache/go/1.21.13/arm64/src/runtime/malloc.go:1116 +0x448 fp=0xe73f1ffb08 sp=0xe73f1ffaa0 pc=0x7708a8
+runtime.newobject(0xe73f1ffb68?)
+	/Users/runner/hostedtoolcache/go/1.21.13/arm64/src/runtime/malloc.go:1328 +0x25 fp=0xe73f1ffb30 sp=0xe73f1ffb08 pc=0x770de5
+internal/cpu.doinit()
+	/Users/runner/hostedtoolcache/go/1.21.13/arm64/src/internal/cpu/cpu_x86.go:51 +0x1e fp=0xe73f1ffb90 sp=0xe73f1ffb30 pc=0x76521e
+internal/cpu.Initialize({0x0, 0x0})
+	/Users/runner/hostedtoolcache/go/1.21.13/arm64/src/internal/cpu/cpu.go:125 +0x1d fp=0xe73f1ffbb0 sp=0xe73f1ffb90 pc=0x764c7d
+runtime.cpuinit(...)
+	/Users/runner/hostedtoolcache/go/1.21.13/arm64/src/runtime/proc.go:639
+runtime.schedinit()
+	/Users/runner/hostedtoolcache/go/1.21.13/arm64/src/runtime/proc.go:731 +0xb7 fp=0xe73f1ffbf0 sp=0xe73f1ffbb0 pc=0x79ecb7
+runtime.rt0_go()
+	/Users/runner/hostedtoolcache/go/1.21.13/arm64/src/runtime/asm_amd64.s:349 +0x13c fp=0xe73f1ffbf8 sp=0xe73f1ffbf0 pc=0x7c947c
+  • Above command failed, retrying 3 more times
