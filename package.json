@@ -10,7 +10,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && electron-builder",
+    "build": "tsc && vite build",
+    "build:electron": "tsc && vite build && electron-builder",
     "preview": "vite preview",
     "build:win": "tsc && vite build && electron-builder --win",
     "release": "tsc && vite build && electron-builder --win --publish always"
