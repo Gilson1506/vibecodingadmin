@@ -6,7 +6,7 @@ import { VitePWA } from "vite-plugin-pwa";
 import electron from "vite-plugin-electron/simple";
 
 export default defineConfig({
-  base: './',
+  base: process.env.VERCEL ? '/' : './',
   plugins: [
     react(),
     tailwindcss(),
